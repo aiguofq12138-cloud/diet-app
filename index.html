@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>饮食助手</title>
-    
-    <!-- PWA 配置 -->
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="饮食助手">
     <meta name="theme-color" content="#FFF5F7">
-   <link rel="apple-touch-icon" href="./icon.png">
-<link rel="icon" type="image/png" href="./icon.png">
-<link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon.png">
+    <link rel="icon" type="image/png" href="./icon.png">
+    <link rel="manifest" href="./manifest.json">
     <style>
         :root {
-            --primary: #FF6B9E;       /* 亮粉色 */
-            --secondary: #8B5CF6;     /* 电光紫 */
-            --accent: #FFD166;        /* 亮黄色 */
+            --primary: #FF6B9E;
+            --secondary: #8B5CF6;
+            --accent: #FFD166;
             --bg-gradient: linear-gradient(135deg, #FFF0F5 0%, #F0F4FF 100%);
             --card-bg: #ffffff;
             --text-main: #2D3748;
@@ -39,15 +38,11 @@
         /* 聊天气泡 */
         .chat-bubble { max-width: 85%; padding: 14px 18px; border-radius: 22px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; position: relative; word-wrap: break-word; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(15px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .chat-user { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; margin-left: auto; border-bottom-right-radius: 6px; box-shadow: 0 8px 20px rgba(255, 107, 158, 0.3); }
-        .chat-ai { background: var(--card-bg); color: var(--text-main); margin-right: auto; border-bottom-left-radius: 6px; box-shadow: 0 8px 20px rgba(139, 92, 246, 0.15); border: 2px solid rgba(255, 107, 158, 0.2); }
-       .chat-ai::before { content: "🥗"; position: absolute; left: 8px; top: 10px; width: 30px; height: 30px; background: var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(255, 209, 102, 0.5); font-size: 14px; }
-.chat-user::after { content: "😊"; position: absolute; right: 8px; top: 10px; width: 30px; height: 30px; background: #A78BFA; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(167, 139, 250, 0.5); font-size: 14px; }
+        .chat-user { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; margin-left: auto; border-bottom-right-radius: 6px; box-shadow: 0 8px 20px rgba(255, 107, 158, 0.3); padding-right: 48px; }
+        .chat-ai { background: var(--card-bg); color: var(--text-main); margin-right: auto; border-bottom-left-radius: 6px; box-shadow: 0 8px 20px rgba(139, 92, 246, 0.15); border: 2px solid rgba(255, 107, 158, 0.2); padding-left: 48px; }
+        .chat-ai::before { content: "🥗"; position: absolute; left: 8px; top: 10px; width: 30px; height: 30px; background: var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(255, 209, 102, 0.5); font-size: 14px; }
+        .chat-user::after { content: "😊"; position: absolute; right: 8px; top: 10px; width: 30px; height: 30px; background: #A78BFA; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(167, 139, 250, 0.5); font-size: 14px; }
 
-/* 给气泡让出头像空间 */
-.chat-ai { padding-left: 48px; }
-.chat-user { padding-right: 48px; }
-        
         /* 输入区 */
         .input-area { position: fixed; bottom: var(--tab-height); left: 0; width: 100%; background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 10px 15px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(255, 107, 158, 0.15); display: flex; gap: 10px; z-index: 50; }
         .input-area input { flex: 1; padding: 14px 20px; border: 2px solid #FDE68A; border-radius: 30px; outline: none; font-size: 16px; background: #FFFBEB; transition: 0.3s; }
@@ -68,11 +63,11 @@
         .card-header { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
         .card-header h3 { font-size: 16px; color: var(--primary); font-weight: 800; display: flex; align-items: center; gap: 6px; }
         .date-action-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-        
+
         /* 输入控件 */
         input[type="date"], input[type="number"] { flex: 1; padding: 10px 14px; border-radius: 12px; border: 2px solid #FDE68A; font-size: 14px; outline: none; background: #FFFBEB; color: var(--text-main); font-weight: 700; font-family: inherit; min-width: 0; }
         input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; transform: scale(1.2); }
-        
+
         .action-btn-sm { padding: 10px 16px; font-size: 13px; background: linear-gradient(135deg, var(--secondary), #A78BFA); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3); white-space: nowrap; }
         .download-btn { padding: 10px 16px; font-size: 13px; background: linear-gradient(135deg, #FFD166, #F59E0B); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; box-shadow: 0 4px 10px rgba(255, 209, 102, 0.4); white-space: nowrap; }
 
@@ -84,10 +79,6 @@
 
         /* 体重列表 */
         .weight-list { margin-top: 15px; border-top: 1px dashed #FDE68A; padding-top: 10px; }
-        .weight-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #FAF5FF; font-size: 14px; gap: 10px; }
-.weight-item .date { color: var(--text-sub); font-weight: 500; flex-shrink: 0; white-space: nowrap; }
-.weight-item .value { font-weight: 800; color: var(--secondary); font-size: 16px; white-space: nowrap; }
-.weight-item > span:last-child { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
         .trend-down { background: #D1FAE5; color: #059669; }
         .trend-up { background: #FEE2E2; color: #DC2626; }
         .trend-same { background: #E5E7EB; color: #4B5563; }
@@ -97,36 +88,53 @@
         .form-group label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 8px; font-weight: 700; }
         .form-group input, .form-group select { width: 100%; padding: 14px; border: 2px solid #E9D5FF; border-radius: 14px; outline: none; font-size: 16px; background: #FAF5FF; appearance: none; transition: 0.2s; }
         .form-group input:focus, .form-group select:focus { background: white; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255, 107, 158, 0.15); }
-        
+
         .action-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 16px; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 20px rgba(255, 107, 158, 0.3); margin-top: 10px; }
         .action-btn:active { transform: scale(0.96); }
-        
+
         /* 分析面板 */
         .analysis-content { background: var(--card-bg); border-radius: 20px; padding: 20px; display: none; box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.15); border: 2px solid rgba(139, 92, 246, 0.1); animation: popIn 0.4s; }
         .analysis-content h4 { color: var(--secondary); margin: 15px 0 8px 0; font-size: 15px; display: flex; align-items: center; gap: 6px; }
         .analysis-content h4.bad { color: #EF4444; }
         .analysis-content ul { padding-left: 20px; font-size: 14px; line-height: 1.8; color: var(--text-main); }
 
-        /* 体重行修复 */
-.weight-item {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  padding: 10px 0 !important;
-  gap: 12px !important;
-}
-.weight-item .date {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-  white-space: nowrap !important;
-  overflow: visible !important;
-  font-size: 13px !important;
-}
-.weight-item > span:last-child {
-  flex: 0 0 auto !important;
-  white-space: nowrap !important;
-}
-        
+        /* ============ 体重行修复（放最后，最高优先级） ============ */
+        .weight-item {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 10px 0 !important;
+            gap: 12px !important;
+            border-bottom: 1px solid #FAF5FF;
+        }
+        .weight-item .date {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+            white-space: nowrap !important;
+            font-size: 13px !important;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+        .weight-item > span:last-child {
+            flex: 0 0 auto !important;
+            white-space: nowrap !important;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .weight-item .value {
+            font-weight: 800;
+            color: var(--secondary);
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .weight-item .trend {
+            font-size: 12px;
+            margin-left: 4px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -135,9 +143,8 @@
 
     <div class="content">
         <div id="panel-chat" class="panel active"></div>
-        
+
         <div id="panel-table" class="panel">
-            <!-- 饮食表格卡片 -->
             <div class="card">
                 <div class="card-header">
                     <h3>📅 饮食记录</h3>
@@ -154,7 +161,6 @@
                 </div>
             </div>
 
-            <!-- 体重记录卡片 -->
             <div class="card">
                 <div class="card-header">
                     <h3>⚖️ 体重记录</h3>
@@ -174,7 +180,7 @@
             <button class="action-btn" onclick="generateAnalysis()" style="margin-bottom: 15px;">✨ 生成饮食优缺点分析</button>
             <div id="analysis-content" class="analysis-content"></div>
         </div>
-        
+
         <div id="panel-profile" class="panel">
             <div class="card">
                 <h3>👤 个人基础信息</h3>
@@ -201,14 +207,12 @@
     </div>
 
     <script>
-        // ⚠️ 请在这里填入你最新的 API Key
-        const API_KEY = ''; 
+        const API_KEY = '';
         const API_URL = 'https://diet-api.aiguofq12138.workers.dev';
-        const MODEL_NAME = 'deepseek-v4.1-flash'; 
+        const MODEL_NAME = 'deepseek-v4.1-flash';
 
-        let chatHistory = [], dietRecords = [], weightRecords = [], userProfile = {}; 
+        let chatHistory = [], dietRecords = [], weightRecords = [], userProfile = {};
 
-        // 定义两个工具：记录饮食 和 记录体重
         const recordDietTool = {
             type: "function", function: { name: "record_diet", description: "记录用户的饮食数据", parameters: { type: "object", properties: { meal: { type: "string", description: "餐次" }, foods: { type: "array", items: { type: "object", properties: { name: { type: "string" }, quantity: { type: "string" }, calories: { type: "string" } }, required: ["name", "quantity", "calories"] } } }, required: ["meal", "foods"] } }
         };
@@ -228,19 +232,14 @@
             document.getElementById('date-filter').value = today;
             document.getElementById('weight-date').value = today;
 
-            // 恢复对话
             const savedChat = localStorage.getItem('diet_app_chat');
             chatHistory = savedChat ? JSON.parse(savedChat) : [{ role: "system", content: "你是一个专业、热情的饮食记录营养师。如果用户描述了饮食，调用 record_diet 工具记录数据；如果用户提到了体重（如'我今早体重65公斤'），调用 record_weight 工具记录；如果用户提问，请提供专业、易懂的营养学建议。并在记录完成后给出一句简短的健康点评。" }];
             const chatPanel = document.getElementById('panel-chat'); chatPanel.innerHTML = '';
             chatHistory.forEach(msg => { if (msg.role === 'user') addBubble('user', msg.content); else if (msg.role === 'assistant') addBubble('ai', msg.content); });
 
-            // 恢复饮食记录
             const savedRecords = localStorage.getItem('diet_app_records'); if (savedRecords) { dietRecords = JSON.parse(savedRecords); renderTable(); }
-            
-            // 恢复体重记录
             const savedWeights = localStorage.getItem('diet_app_weights'); if (savedWeights) { weightRecords = JSON.parse(savedWeights); renderWeightList(); }
 
-            // 恢复个人信息
             const savedProfile = localStorage.getItem('diet_app_profile');
             if (savedProfile) { userProfile = JSON.parse(savedProfile); document.getElementById('profile-gender').value = userProfile.gender || '男'; document.getElementById('profile-age').value = userProfile.age || ''; document.getElementById('profile-height').value = userProfile.height || ''; document.getElementById('profile-weight').value = userProfile.weight || ''; document.getElementById('profile-goal').value = userProfile.goal || '保持健康'; }
         };
@@ -251,30 +250,26 @@
             alert("个人信息已保存！");
         }
 
-        // 🚀 手动保存体重逻辑
         function saveWeight() {
             const date = document.getElementById('weight-date').value;
             const weight = document.getElementById('weight-input').value;
             if (!date || !weight) { alert("请选择日期并输入体重！"); return; }
-            
-            // 检查该日期是否已有记录，有则覆盖，无则新增
+
             const existingIndex = weightRecords.findIndex(r => r.date === date);
             if (existingIndex > -1) {
                 weightRecords[existingIndex].weight = weight;
             } else {
                 weightRecords.push({ date: date, weight: weight });
             }
-            
-            // 按日期倒序排序
+
             weightRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
+
             localStorage.setItem('diet_app_weights', JSON.stringify(weightRecords));
             document.getElementById('weight-input').value = '';
             renderWeightList();
             alert("体重已记录！");
         }
 
-        // 🚀 渲染体重列表和趋势
         function renderWeightList() {
             const listDiv = document.getElementById('weight-list');
             if (weightRecords.length === 0) {
@@ -283,13 +278,12 @@
             }
 
             listDiv.innerHTML = '';
-            // 只展示最近 7 条记录
             const recentRecords = weightRecords.slice(0, 7);
-            
+
             recentRecords.forEach((record, index) => {
-                const prevRecord = recentRecords[index + 1]; // 上一条（前一天的数据）
+                const prevRecord = recentRecords[index + 1];
                 let trendHtml = '';
-                
+
                 if (prevRecord) {
                     const diff = parseFloat(record.weight) - parseFloat(prevRecord.weight);
                     if (diff > 0) trendHtml = `<span class="trend trend-up">↑${diff.toFixed(1)}kg</span>`;
@@ -331,89 +325,102 @@
                 if (userProfile.gender) { systemPrompt += `用户信息：性别${userProfile.gender}，年龄${userProfile.age}岁，身高${userProfile.height}cm，体重${userProfile.weight}kg，当前目标：${userProfile.goal}。`; }
                 chatHistory[0] = { role: "system", content: systemPrompt };
 
-                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` }, body: JSON.stringify({ model: MODEL_NAME, messages: chatHistory, temperature: 0.7, tools: [recordDietTool, recordWeightTool], tool_choice: "auto" }) });
+                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: MODEL_NAME, messages: chatHistory, temperature: 0.7, tools: [recordDietTool, recordWeightTool], tool_choice: "auto" }) });
                 const data = await response.json();
-// 增加错误处理，防止崩溃
-if (data.error) {
-    addBubble('ai', `❌ 接口报错：${data.error.message || JSON.stringify(data.error)}`);
-    return; // 提前结束，不往下跑了
-}
-const message = data.choices[0].message; let finalReplyText = "";
+
+                if (data.error) {
+                    addBubble('ai', `❌ 接口报错：${data.error.message || JSON.stringify(data.error)}`);
+                    return;
+                }
+                const message = data.choices[0].message;
+                let finalReplyText = "";
 
                 if (message.tool_calls && message.tool_calls.length > 0) {
                     const toolCall = message.tool_calls[0];
-                    
-                    // 情况1：记录饮食
+
                     if (toolCall.function.name === "record_diet") {
-                        const parsedArgs = JSON.parse(toolCall.function.arguments); 
-                        parsedArgs.date = getLocalDateStr(); 
-                        dietRecords.push(parsedArgs); 
-                        localStorage.setItem('diet_app_records', JSON.stringify(dietRecords)); 
-                        
-                        document.getElementById('date-filter').value = parsedArgs.date; 
+                        const parsedArgs = JSON.parse(toolCall.function.arguments);
+                        parsedArgs.date = getLocalDateStr();
+                        dietRecords.push(parsedArgs);
+                        localStorage.setItem('diet_app_records', JSON.stringify(dietRecords));
+
+                        document.getElementById('date-filter').value = parsedArgs.date;
                         renderTable();
-                        
+
                         chatHistory.push(message); chatHistory.push({ role: "tool", tool_call_id: toolCall.id, content: JSON.stringify({status: "记录成功"}) });
-                    } 
-                    // 情况2：记录体重
+                    }
                     else if (toolCall.function.name === "record_weight") {
                         const parsedArgs = JSON.parse(toolCall.function.arguments);
                         const recordDate = parsedArgs.date || getLocalDateStr();
-                        
+
                         const existingIndex = weightRecords.findIndex(r => r.date === recordDate);
-                        if (existingIndex > -1) { weightRecords[existingIndex].weight = parsedArgs.weight; } 
+                        if (existingIndex > -1) { weightRecords[existingIndex].weight = parsedArgs.weight; }
                         else { weightRecords.push({ date: recordDate, weight: parsedArgs.weight }); }
-                        
+
                         weightRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
                         localStorage.setItem('diet_app_weights', JSON.stringify(weightRecords));
                         renderWeightList();
-                        
+
                         chatHistory.push(message); chatHistory.push({ role: "tool", tool_call_id: toolCall.id, content: JSON.stringify({status: "记录成功"}) });
                     }
 
-                    // 统一让 AI 根据刚才的记录结果给出反馈
-                    const feedbackRes = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` }, body: JSON.stringify({ model: MODEL_NAME, messages: chatHistory, temperature: 0.7 }) });
-                    const feedbackData = await feedbackRes.json(); finalReplyText = feedbackData.choices[0].message.content; chatHistory.push({ role: "assistant", content: finalReplyText });
-                    
-                } else if (message.content) { finalReplyText = message.content; chatHistory.push({ role: "assistant", content: finalReplyText }); }
+                    const feedbackRes = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: MODEL_NAME, messages: chatHistory, temperature: 0.7 }) });
+                    const feedbackData = await feedbackRes.json();
+                    finalReplyText = feedbackData.choices[0].message.content;
+                    chatHistory.push({ role: "assistant", content: finalReplyText });
+
+                } else if (message.content) {
+                    finalReplyText = message.content;
+                    chatHistory.push({ role: "assistant", content: finalReplyText });
+                }
                 addBubble('ai', finalReplyText); saveChatHistory();
-            } catch (error) { console.error("API请求失败:", error); addBubble('ai', "网络请求失败，请检查 API 余额或控制台报错。"); } finally { sendBtn.disabled = false; sendBtn.innerText = '➤'; }
+            } catch (error) {
+                console.error("API请求失败:", error);
+                addBubble('ai', "网络请求失败，请检查 API 余额或控制台报错。");
+            } finally {
+                sendBtn.disabled = false; sendBtn.innerText = '➤';
+            }
         }
 
         function renderTable() {
-            const tbody = document.getElementById('diet-table-body'); 
-            const selectedDate = document.getElementById('date-filter').value; 
+            const tbody = document.getElementById('diet-table-body');
+            const selectedDate = document.getElementById('date-filter').value;
             tbody.innerHTML = '';
             let filteredRecords = dietRecords.filter(record => record.date === selectedDate);
 
-            if (filteredRecords.length === 0) { 
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#999;padding:20px;">该日暂无记录</td></tr>`; 
-                return; 
+            if (filteredRecords.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#999;padding:20px;">该日暂无记录</td></tr>`;
+                return;
             }
 
-            filteredRecords.forEach(record => { 
-                record.foods.forEach(food => { 
-                    const tr = document.createElement('tr'); 
-                    tr.innerHTML = `<td><span class="tag">${record.meal || '加餐'}</span></td><td>${food.name}</td><td>${food.quantity}</td><td style="color: #D97706; font-weight:800;">${food.calories || '-'}</td>`; 
-                    tbody.appendChild(tr); 
-                }); 
+            filteredRecords.forEach(record => {
+                record.foods.forEach(food => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td><span class="tag">${record.meal || '加餐'}</span></td><td>${food.name}</td><td>${food.quantity}</td><td style="color: #D97706; font-weight:800;">${food.calories || '-'}</td>`;
+                    tbody.appendChild(tr);
+                });
             });
         }
 
         function downloadCSV() {
             if (dietRecords.length === 0) { alert("没有饮食数据可导出"); return; }
-            let csvContent = "\uFEFF日期,餐次,食物,数量,估算热量\n"; dietRecords.forEach(record => { record.foods.forEach(food => { csvContent += `${record.date || ''},${record.meal || '加餐'},${food.name},${food.quantity},${food.calories || ''}\n`; }); });
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `饮食记录_${getLocalDateStr()}.csv`; link.click();
+            let csvContent = "\uFEFF日期,餐次,食物,数量,估算热量\n";
+            dietRecords.forEach(record => { record.foods.forEach(food => { csvContent += `${record.date || ''},${record.meal || '加餐'},${food.name},${food.quantity},${food.calories || ''}\n`; }); });
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `饮食记录_${getLocalDateStr()}.csv`;
+            link.click();
         }
 
         async function generateAnalysis() {
-            const btn = document.querySelector('.action-btn'); const contentDiv = document.getElementById('analysis-content'); 
+            const btn = document.querySelector('.action-btn');
+            const contentDiv = document.getElementById('analysis-content');
             if (chatHistory.length <= 1) { alert("还没有任何记录！"); return; }
-            
+
             btn.innerText = "正在分析中..."; btn.disabled = true; contentDiv.style.display = 'none';
-            
+
             try {
-                // 将体重历史拼接到 Prompt 中，让 AI 结合体重趋势进行分析
                 let weightContext = "";
                 if (weightRecords.length > 0) {
                     weightContext = "用户近期体重记录：" + weightRecords.slice(0, 10).map(r => `${r.date}: ${r.weight}kg`).join(", ") + "。";
@@ -421,32 +428,41 @@ const message = data.choices[0].message; let finalReplyText = "";
                     weightContext = "用户近期无体重记录。";
                 }
 
-                let analysisSystemPrompt = `你是一个专业的营养分析专家。请根据以下对话历史中的饮食记录，生成一份详细的饮食优缺点分析。${weightContext} 请在分析中明确指出用户近期的体重变化趋势，并将其与饮食联系起来。输出格式要求使用HTML标签，包含 '<h4>✅ 饮食优点</h4><ul><li>...</li></ul>' 和 '<h4 class=\"bad\">⚠️ 饮食不足</h4><ul><li>...</li></ul>' 以及 '<h4>💡 改进建议</h4><ul><li>...</li></ul>'。请直接输出HTML内容。`;
-                
-                if (userProfile.gender) { analysisSystemPrompt += `用户信息：性别${userProfile.gender}，年龄${userProfile.age}岁，身高${userProfile.height}cm，体重${userProfile.weight}kg，当前目标：${userProfile.goal}。请结合这些信息进行分析。`; }
-                
-                const analysisPrompt = [{ role: "system", content: analysisSystemPrompt }, ...chatHistory.filter(msg => msg.role === 'user' || msg.role === 'assistant')];
-                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` }, body: JSON.stringify({ model: MODEL_NAME, messages: analysisPrompt, temperature: 0.7 }) });
-                const data = await response.json(); 
-                let htmlContent = data.choices[0].message.content.replace(/```html/g, '').replace(/```/g, '').trim();
-                
-                contentDiv.innerHTML = htmlContent; contentDiv.style.display = 'block'; btn.innerText = "🔄 重新生成分析";
-    } catch (error) { 
-        console.error("分析失败:", error);
-        contentDiv.innerHTML = "<p style='color:red;'>分析失败：" + (error.message || '未知错误') + "</p>"; 
-        contentDiv.style.display = 'block'; 
-        btn.innerText = "✨ 生成饮食优缺点分析"; 
-    } finally { 
-        btn.disabled = false; 
-    }
-}  // 👈 关键！这里补上 generateAnalysis 的闭合花括号
+                let analysisSystemPrompt = `你是一个专业的营养分析专家。请根据以下对话历史中的饮食记录，生成一份详细的饮食优缺点分析。${weightContext} 请在分析中明确指出用户近期的体重变化趋势，并将其与饮食联系起来。输出格式要求使用HTML标签，包含 '<h4>✅ 饮食优点</h4><ul><li>...</li></ul>' 和 '<h4 class="bad">⚠️ 饮食不足</h4><ul><li>...</li></ul>' 以及 '<h4>💡 改进建议</h4><ul><li>...</li></ul>'。请直接输出HTML内容，不要包含markdown代码块标记。`;
 
-function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
+                if (userProfile.gender) { analysisSystemPrompt += `用户信息：性别${userProfile.gender}，年龄${userProfile.age}岁，身高${userProfile.height}cm，体重${userProfile.weight}kg，当前目标：${userProfile.goal}。请结合这些信息进行分析。`; }
+
+                const analysisPrompt = [{ role: "system", content: analysisSystemPrompt }, ...chatHistory.filter(msg => msg.role === 'user' || msg.role === 'assistant')];
+                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: MODEL_NAME, messages: analysisPrompt, temperature: 0.7 }) });
+                const data = await response.json();
+
+                if (data.error) {
+                    contentDiv.innerHTML = "<p style='color:red;'>接口报错：" + (data.error.message || JSON.stringify(data.error)) + "</p>";
+                    contentDiv.style.display = 'block';
+                    return;
+                }
+
+                let htmlContent = data.choices[0].message.content.replace(/```html/g, '').replace(/```/g, '').trim();
+                contentDiv.innerHTML = htmlContent;
+                contentDiv.style.display = 'block';
+                btn.innerText = "🔄 重新生成分析";
+            } catch (error) {
+                console.error("分析失败:", error);
+                contentDiv.innerHTML = "<p style='color:red;'>分析失败：" + (error.message || '未知错误') + "</p>";
+                contentDiv.style.display = 'block';
+                btn.innerText = "✨ 生成饮食优缺点分析";
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
     </script>
+
     <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW失败:', err));
-  }
-</script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW失败:', err));
+        }
+    </script>
 </body>
 </html>
