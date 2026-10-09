@@ -431,14 +431,17 @@ const message = data.choices[0].message; let finalReplyText = "";
                 let htmlContent = data.choices[0].message.content.replace(/```html/g, '').replace(/```/g, '').trim();
                 
                 contentDiv.innerHTML = htmlContent; contentDiv.style.display = 'block'; btn.innerText = "🔄 重新生成分析";
-            } catch (error) { 
-    console.error("分析失败:", error);
-    contentDiv.innerHTML = "<p style='color:red;'>分析失败：" + (error.message || '未知错误') + "</p>"; 
-    contentDiv.style.display = 'block'; 
-    btn.innerText = "✨ 生成饮食优缺点分析"; 
-} finally { btn.disabled = false; }
+    } catch (error) { 
+        console.error("分析失败:", error);
+        contentDiv.innerHTML = "<p style='color:red;'>分析失败：" + (error.message || '未知错误') + "</p>"; 
+        contentDiv.style.display = 'block'; 
+        btn.innerText = "✨ 生成饮食优缺点分析"; 
+    } finally { 
+        btn.disabled = false; 
+    }
+}  // 👈 关键！这里补上 generateAnalysis 的闭合花括号
 
-        function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
+function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
     </script>
     <script>
   if ('serviceWorker' in navigator) {
