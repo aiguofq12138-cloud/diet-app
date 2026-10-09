@@ -308,7 +308,13 @@
                 chatHistory[0] = { role: "system", content: systemPrompt };
 
                 const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` }, body: JSON.stringify({ model: MODEL_NAME, messages: chatHistory, temperature: 0.7, tools: [recordDietTool, recordWeightTool], tool_choice: "auto" }) });
-                const data = await response.json(); const message = data.choices[0].message; let finalReplyText = "";
+                const data = await response.json();
+// 增加错误处理，防止崩溃
+if (data.error) {
+    addBubble('ai', `❌ 接口报错：${data.error.message || JSON.stringify(data.error)}`);
+    return; // 提前结束，不往下跑了
+}
+const message = data.choices[0].message; let finalReplyText = "";
 
                 if (message.tool_calls && message.tool_calls.length > 0) {
                     const toolCall = message.tool_calls[0];
