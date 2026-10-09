@@ -1,13 +1,25 @@
 {
   "name": "饮食助手",
   "short_name": "饮食助手",
-  "start_url": "./",
+  "description": "AI 对话记录饮食，自动分析营养",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FFF0F5",
   "theme_color": "#FF6B9E",
+  "background_color": "#FFF0F5",
   "icons": [
-    { "src": "./icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
