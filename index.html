@@ -106,6 +106,27 @@
         .analysis-content h4 { color: var(--secondary); margin: 15px 0 8px 0; font-size: 15px; display: flex; align-items: center; gap: 6px; }
         .analysis-content h4.bad { color: #EF4444; }
         .analysis-content ul { padding-left: 20px; font-size: 14px; line-height: 1.8; color: var(--text-main); }
+
+        /* 体重行修复 */
+.weight-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 10px 0 !important;
+  gap: 12px !important;
+}
+.weight-item .date {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  font-size: 13px !important;
+}
+.weight-item > span:last-child {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+        
     </style>
 </head>
 <body>
@@ -410,8 +431,12 @@ const message = data.choices[0].message; let finalReplyText = "";
                 let htmlContent = data.choices[0].message.content.replace(/```html/g, '').replace(/```/g, '').trim();
                 
                 contentDiv.innerHTML = htmlContent; contentDiv.style.display = 'block'; btn.innerText = "🔄 重新生成分析";
-            } catch (error) { contentDiv.innerHTML = "<p style='color:red;'>分析失败，请重试。</p>"; contentDiv.style.display = 'block'; btn.innerText = "✨ 生成饮食优缺点分析"; } finally { btn.disabled = false; }
-        }
+            } catch (error) { 
+    console.error("分析失败:", error);
+    contentDiv.innerHTML = "<p style='color:red;'>分析失败：" + (error.message || '未知错误') + "</p>"; 
+    contentDiv.style.display = 'block'; 
+    btn.innerText = "✨ 生成饮食优缺点分析"; 
+} finally { btn.disabled = false; }
 
         function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
     </script>
