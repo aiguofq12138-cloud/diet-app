@@ -412,5 +412,10 @@ const message = data.choices[0].message; let finalReplyText = "";
 
         function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
     </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW失败:', err));
+  }
+</script>
 </body>
 </html>
