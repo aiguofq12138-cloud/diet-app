@@ -58,24 +58,37 @@
         .tab.active { color: var(--primary); font-weight: 800; }
         .tab.active .icon { filter: grayscale(0) opacity(1); transform: translateY(-4px) scale(1.1); drop-shadow: 0 4px 8px rgba(255,107,158,0.4); }
 
-        /* 卡片与表格 */
+        /* 卡片 */
         .card { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; box-shadow: 0 10px 25px -5px rgba(255, 107, 158, 0.15); border: 2px solid rgba(255, 107, 158, 0.1); }
         .card-header { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
         .card-header h3 { font-size: 16px; color: var(--primary); font-weight: 800; display: flex; align-items: center; gap: 6px; }
-        .date-action-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-        /* 输入控件 */
-        input[type="date"], input[type="number"] { flex: 1; padding: 10px 14px; border-radius: 12px; border: 2px solid #FDE68A; font-size: 14px; outline: none; background: #FFFBEB; color: var(--text-main); font-weight: 700; font-family: inherit; min-width: 0; }
-        input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; transform: scale(1.2); }
+        /* 输入控件（修复体重日期显示） */
+        .date-action-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+        input[type="date"], input[type="number"] {
+            flex: 1 1 120px;
+            min-width: 120px;
+            padding: 10px 8px;
+            border-radius: 12px;
+            border: 2px solid #FDE68A;
+            font-size: 13px;
+            outline: none;
+            background: #FFFBEB;
+            color: var(--text-main);
+            font-weight: 700;
+            font-family: inherit;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; transform: scale(1.1); }
 
-        .action-btn-sm { padding: 10px 16px; font-size: 13px; background: linear-gradient(135deg, var(--secondary), #A78BFA); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3); white-space: nowrap; }
-        .download-btn { padding: 10px 16px; font-size: 13px; background: linear-gradient(135deg, #FFD166, #F59E0B); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; box-shadow: 0 4px 10px rgba(255, 209, 102, 0.4); white-space: nowrap; }
+        .action-btn-sm { padding: 10px 14px; font-size: 13px; background: linear-gradient(135deg, var(--secondary), #A78BFA); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3); white-space: nowrap; flex-shrink: 0; }
+        .download-btn { padding: 10px 14px; font-size: 13px; background: linear-gradient(135deg, #FFD166, #F59E0B); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; box-shadow: 0 4px 10px rgba(255, 209, 102, 0.4); white-space: nowrap; }
 
+        /* 表格（修复热量列被截断） */
         .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -20px; padding: 0 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 400px; }
-        th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #FDE68A; white-space: nowrap; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { padding: 10px 6px; text-align: left; border-bottom: 1px solid #FDE68A; word-break: break-word; }
         th { color: var(--secondary); font-weight: 700; font-size: 12px; }
-        .tag { display: inline-block; padding: 4px 10px; border-radius: 10px; font-size: 12px; background: #FFFBEB; color: #D97706; font-weight: 700; border: 1px solid #FDE68A; }
+        .tag { display: inline-block; padding: 4px 8px; border-radius: 10px; font-size: 11px; background: #FFFBEB; color: #D97706; font-weight: 700; border: 1px solid #FDE68A; white-space: nowrap; }
 
         /* 体重列表 */
         .weight-list { margin-top: 15px; border-top: 1px dashed #FDE68A; padding-top: 10px; }
@@ -93,12 +106,14 @@
         .action-btn:active { transform: scale(0.96); }
 
         /* 分析面板 */
-        .analysis-content { background: var(--card-bg); border-radius: 20px; padding: 20px; display: none; box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.15); border: 2px solid rgba(139, 92, 246, 0.1); animation: popIn 0.4s; }
-        .analysis-content h4 { color: var(--secondary); margin: 15px 0 8px 0; font-size: 15px; display: flex; align-items: center; gap: 6px; }
+        .analysis-content { background: var(--card-bg); border-radius: 20px; padding: 20px; display: none; box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.15); border: 2px solid rgba(139, 92, 246, 0.1); animation: popIn 0.4s; font-size: 14px; line-height: 1.8; color: var(--text-main); }
+        .analysis-content h4 { color: var(--secondary); margin: 15px 0 8px 0; font-size: 15px; }
         .analysis-content h4.bad { color: #EF4444; }
-        .analysis-content ul { padding-left: 20px; font-size: 14px; line-height: 1.8; color: var(--text-main); }
+        .analysis-content ul { padding-left: 20px; }
+        .analysis-content li { margin-bottom: 4px; }
+        .analysis-content br { line-height: 1.8; }
 
-        /* ============ 体重行修复（放最后，最高优先级） ============ */
+        /* 体重行修复（最高优先级） */
         .weight-item {
             display: flex !important;
             justify-content: space-between !important;
@@ -155,7 +170,7 @@
                 </div>
                 <div class="table-wrapper">
                     <table>
-                        <thead><tr><th>餐次</th><th>食物</th><th>数量</th><th>估算热量</th></tr></thead>
+                        <thead><tr><th>餐次</th><th>食物</th><th>数量</th><th>热量</th></tr></thead>
                         <tbody id="diet-table-body"><tr><td colspan="4" style="text-align:center;color:#999;padding:20px;">该日暂无记录</td></tr></tbody>
                     </table>
                 </div>
@@ -428,7 +443,7 @@
                     weightContext = "用户近期无体重记录。";
                 }
 
-                let analysisSystemPrompt = `你是一个专业的营养分析专家。请根据以下对话历史中的饮食记录，生成一份详细的饮食优缺点分析。${weightContext} 请在分析中明确指出用户近期的体重变化趋势，并将其与饮食联系起来。输出格式要求使用HTML标签，包含 '<h4>✅ 饮食优点</h4><ul><li>...</li></ul>' 和 '<h4 class="bad">⚠️ 饮食不足</h4><ul><li>...</li></ul>' 以及 '<h4>💡 改进建议</h4><ul><li>...</li></ul>'。请直接输出HTML内容，不要包含markdown代码块标记。`;
+                let analysisSystemPrompt = `你是一个专业的营养分析专家。请根据以下对话历史中的饮食记录，生成一份详细的饮食优缺点分析。${weightContext} 请在分析中明确指出用户近期的体重变化趋势，并将其与饮食联系起来。请用简洁的 Markdown 格式输出，必须包含三级标题「### ✅ 饮食优点」和「### ⚠️ 饮食不足」和「### 💡 改进建议」，每个标题下用无序列表「- 」列出要点。`;
 
                 if (userProfile.gender) { analysisSystemPrompt += `用户信息：性别${userProfile.gender}，年龄${userProfile.age}岁，身高${userProfile.height}cm，体重${userProfile.weight}kg，当前目标：${userProfile.goal}。请结合这些信息进行分析。`; }
 
@@ -442,7 +457,35 @@
                     return;
                 }
 
-                let htmlContent = data.choices[0].message.content.replace(/```html/g, '').replace(/```/g, '').trim();
+                let rawContent = data.choices[0].message.content || '';
+                rawContent = rawContent.replace(/```html/g, '').replace(/```/g, '').trim();
+
+                let htmlContent;
+                // 检测是否有 HTML 标签
+                if (rawContent.indexOf('<h4>') === -1 && rawContent.indexOf('<ul>') === -1) {
+                    // Markdown → HTML 转换
+                    htmlContent = rawContent
+                        .replace(/^###\s*(.+)$/gm, '<h4>$1</h4>')
+                        .replace(/^##\s*(.+)$/gm, '<h4>$1</h4>')
+                        .replace(/^#\s*(.+)$/gm, '<h4>$1</h4>')
+                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/^[-*]\s+(.+)$/gm, '<li>$1</li>');
+
+                    // 把连续的 <li> 包进 <ul>
+                    htmlContent = htmlContent.replace(/(<li>[\s\S]*?<\/li>)(?![\s\S]*?<li>)/g, function(match) {
+                        return '<ul>' + match + '</ul>';
+                    });
+                    // 处理换行
+                    htmlContent = htmlContent.replace(/\n{2,}/g, '<br>').replace(/\n/g, '<br>');
+                    htmlContent = htmlContent.replace(/<br><ul>/g, '<ul>').replace(/<\/ul><br>/g, '</ul>');
+                } else {
+                    htmlContent = rawContent;
+                }
+
+                if (!htmlContent || htmlContent.replace(/<br>/g, '').trim().length < 5) {
+                    htmlContent = '<p style="color:#999;">AI 未返回分析内容，请重新生成。</p>';
+                }
+
                 contentDiv.innerHTML = htmlContent;
                 contentDiv.style.display = 'block';
                 btn.innerText = "🔄 重新生成分析";
